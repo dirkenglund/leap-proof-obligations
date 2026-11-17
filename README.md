@@ -403,6 +403,28 @@ These are in-scope formalization tasks that do not yet have a single compiled
   proved / not-formalizable rows. Difficulty: medium, about 1–2 weeks per
   paper.
 
+## Blueprint
+
+A [Lean blueprint](https://github.com/PatrickMassot/leanblueprint) for these
+obligations lives in [`blueprint/src/`](blueprint/src/). Each compiled
+statement is a theorem or definition with a `\lean` name and `\uses`
+dependencies, plus an informal proof sketch. The intended dependency graph
+relates, among other things, Hirschman's strip inequality to operator
+Stein–Hirschman (via Schatten Hölder), unrotated Petz recovery to the rotated
+maps, and monotonicity of relative entropy to the Holevo bound.
+
+A GitHub Actions workflow (`.github/workflows/blueprint.yml`) builds the
+project with the standard `leanprover-community/docgen-action` (`blueprint: true`)
+and deploys to GitHub Pages. After Pages is served from GitHub Actions, the
+expected URLs are:
+
+- Blueprint (HTML): https://dirkenglund.github.io/leap-proof-obligations/blueprint/
+- Blueprint (PDF): https://dirkenglund.github.io/leap-proof-obligations/blueprint.pdf
+- API docs: https://dirkenglund.github.io/leap-proof-obligations/docs/
+
+If those URLs 404, set the repository's Pages source to GitHub Actions
+(Settings → Pages → Build and deployment → Source).
+
 ## License
 
 MIT License. See [LICENSE](LICENSE).

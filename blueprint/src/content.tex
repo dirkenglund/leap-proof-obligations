@@ -1,0 +1,630 @@
+% Blueprint content for the Lean 4 proof obligations.
+% Every compiled obligation is a theorem or lemma with a \lean name.
+% Proofs are informal sketches from the public task statements; none is formalized.
+
+\chapter{Introduction}
+
+This blueprint records Lean~4 formalization obligations stated over public
+Mathlib (commit \texttt{56a005855ea17e0b0958f73ec801ae140b0a1679}, Lean
+\texttt{v4.35.0}). The statements are written to type-check with
+\texttt{sorry}. None of them is proved, and the statements have not been
+independently peer-reviewed.
+
+A proof of a named theorem is accepted when \texttt{lake build} passes, the
+statement is byte-identical to the specification in this repository, and
+\texttt{\#print axioms} lists only \texttt{propext}, \texttt{Classical.choice}
+and \texttt{Quot.sound}.
+
+Shared Lean definitions live in the module \texttt{LeapProofObligations.Definitions}
+and contain no \texttt{sorry}. Each obligation is a separately named theorem in
+its own file.
+
+The main book reference is Wilde, \emph{Quantum Information Theory}, 2nd ed.
+Citations of the form ``Wilde Def~15.2.3'' refer to that book.
+
+\chapter{Shared definitions}
+
+\begin{definition}[Letter counts]
+  \label{def:count}
+  \lean{Leap.count, Leap.pairCount}
+  For a word $x$ of length $k$ on a finite alphabet, $\operatorname{count}(x,a)$
+  is the number of occurrences of the letter $a$. For a pair of words $x,y$,
+  $\operatorname{pairCount}(x,y,a,b)$ is the number of positions $i$ with
+  $(x_i,y_i)=(a,b)$.
+\end{definition}
+
+\begin{definition}[Strong typicality]
+  \label{def:strongTypical}
+  \lean{Leap.strongTypical, Leap.iidProb}
+  \uses{def:count}
+  The strongly $\delta$-typical words of length $k$ for a distribution $p$ are
+  those $x$ such that, for every letter $a$,
+  $\bigl|\operatorname{count}(x,a)/k - p(a)\bigr| \le \delta$ and $p(a)=0$
+  implies $\operatorname{count}(x,a)=0$. The i.i.d.\ probability of a set of
+  words is $\sum_{x \in S} \prod_i p(x_i)$.
+\end{definition}
+
+\begin{definition}[Conditional typicality]
+  \label{def:condTypical}
+  \lean{Leap.condTypical, Leap.condProb}
+  \uses{def:count}
+  Given a memoryless channel $W$ and an input word $x$, the conditionally
+  strongly $\delta$-typical output words are those $y$ such that for all
+  $a,b$,
+  $\bigl|\operatorname{pairCount}(x,y,a,b)/k - W(a,b)\,\operatorname{count}(x,a)/k\bigr| \le \delta$
+  and $W(a,b)=0$ implies $\operatorname{pairCount}(x,y,a,b)=0$. The output
+  probability of a set $S$ given $x$ is $\sum_{y \in S} \prod_i W(x_i,y_i)$.
+\end{definition}
+
+\begin{definition}[Shannon entropy]
+  \label{def:entropy}
+  \lean{Leap.entropy}
+  The Shannon entropy in nats is $H(q) = -\sum_b q(b)\log q(b)$, with the
+  convention $\log 0 = 0$ (hence $0\log 0 = 0$).
+\end{definition}
+
+\begin{definition}[Kraus form]
+  \label{def:kraus}
+  \lean{Leap.kraus, Leap.krausAdj}
+  A Kraus-form map is $X \mapsto \sum_i K_i X K_i^\dagger$. Its Heisenberg-picture
+  adjoint is $Y \mapsto \sum_i K_i^\dagger Y K_i$.
+\end{definition}
+
+\begin{definition}[Support functional calculus]
+  \label{def:rpowS}
+  \lean{Leap.rpowS, Leap.ipowS}
+  The real power $A^s$ and the imaginary power $A^{it}$ are defined by the
+  continuous functional calculus, with the convention that both vanish on the
+  kernel of $A$ (so $A^0$ is the support projector).
+\end{definition}
+
+\begin{definition}[Petz recovery map]
+  \label{def:petz}
+  \lean{Leap.petz}
+  \uses{def:kraus, def:rpowS}
+  The Petz recovery map of a Kraus channel $N$ and a state $\sigma$ is
+  $R_{\sigma,N}(X)
+    = \sigma^{1/2}\,
+      N^\dagger\bigl(N(\sigma)^{-1/2} X N(\sigma)^{-1/2}\bigr)\,
+      \sigma^{1/2}$
+  (Wilde Def~12.3.1).
+\end{definition}
+
+\begin{definition}[Rotated Petz map]
+  \label{def:rotatedPetz}
+  \lean{Leap.rotatedPetz}
+  \uses{def:petz, def:rpowS}
+  The rotated Petz map is
+  $R^t_{\sigma,N}
+    = U_{\sigma,t} \circ R_{\sigma,N} \circ U_{N(\sigma),-t}$
+  (Wilde Def~12.3.2).
+\end{definition}
+
+\begin{definition}[Complete positivity and the Choi matrix]
+  \label{def:choi}
+  \lean{Leap.ampliate, Leap.IsCP, Leap.choi}
+  Ampliation is $\mathrm{id}_k \otimes \Phi$ on block matrices. A map $\Phi$ is
+  completely positive if every ampliation preserves the positive-semidefinite
+  cone. The Choi matrix is $\sum_{a,b} \lvert a\rangle\langle b\rvert \otimes \Phi(\lvert a\rangle\langle b\rvert)$.
+\end{definition}
+
+\begin{definition}[Erasure channel]
+  \label{def:erasure}
+  \lean{Leap.erasure, Leap.reErase}
+  The erasure channel $E_\varepsilon$ on $n$ levels has output alphabet
+  $\mathrm{Option}\,n$, with $\mathrm{none}$ the erasure flag: the data block is
+  scaled by $1-\varepsilon$ and the flag carries $\varepsilon\,\operatorname{Tr} X$.
+  Re-erasure with probability $\eta$ keeps the flag and further erases the data
+  block.
+\end{definition}
+
+\begin{definition}[Entanglement fidelity]
+  \label{def:entFid}
+  \lean{Leap.reduced, Leap.entFid}
+  The reduced state of a vector $\psi$ on $n\times r$ is the partial trace over
+  the second factor. Entanglement fidelity of a Kraus channel on a purification
+  $\psi$ is computed from the full output $(N\otimes \mathrm{id})(\lvert\psi\rangle\langle\psi\rvert)$.
+\end{definition}
+
+\begin{definition}[Trace norm and entropies]
+  \label{def:traceNorm}
+  \lean{Leap.traceNorm, Leap.vnEntropy, Leap.relEnt, Leap.ptraceRight}
+  The trace norm is $\lVert A\rVert_1 = \operatorname{Tr}\sqrt{A^\dagger A}$.
+  Von Neumann entropy (nats) is $H(\rho) = -\operatorname{Tr}(\rho\log\rho)$.
+  Umegaki relative entropy is $D(\rho\Vert\sigma) = \operatorname{Tr}\rho(\log\rho-\log\sigma)$.
+  The partial trace over the right factor of a bipartite matrix is denoted
+  $\operatorname{Tr}_B$.
+\end{definition}
+
+\begin{definition}[Hirschman kernels]
+  \label{def:hirschmanKernels}
+  \lean{Leap.hirschmanAlpha, Leap.hirschmanBeta}
+  Wilde's kernels (Thm~12.2.2) are
+  \[
+    \alpha_\theta(t)
+      = \frac{\sin(\pi\theta)}{2(1-\theta)\bigl(\cosh(\pi t)-\cos(\pi\theta)\bigr)},
+    \qquad
+    \beta_\theta(t)
+      = \frac{\sin(\pi\theta)}{2\theta\bigl(\cosh(\pi t)+\cos(\pi\theta)\bigr)}.
+  \]
+\end{definition}
+
+\begin{lemma}[Adjoint composition is symmetric]
+  \label{lem:isSymmetric_adjoint_comp_self}
+  \lean{Leap.isSymmetric_adjoint_comp_self}
+  \leanok
+  For a continuous linear map $T$, the operator $T^\dagger T$ is symmetric.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  Immediate from the defining property of the adjoint on inner products.
+\end{proof}
+
+\begin{definition}[Schatten norm]
+  \label{def:schattenNorm}
+  \lean{Leap.singularValues, Leap.schattenNorm}
+  \uses{lem:isSymmetric_adjoint_comp_self}
+  The singular values of $T$ are the square roots of the eigenvalues of
+  $T^\dagger T$. The Schatten $p$-norm is $\lVert T\rVert_p = \bigl(\sum_i s_i^p\bigr)^{1/p}$.
+\end{definition}
+
+\begin{definition}[CHSH strategies]
+  \label{def:chsh}
+  \lean{Leap.phiPlus, Leap.ProjStrategy, Leap.chshWin}
+  Let $\lvert\Phi^+\rangle$ be the two-qubit maximally entangled state.
+  A projective two-outcome strategy assigns, to each question, two orthogonal
+  projectors summing to the identity. The CHSH winning probability (uniform
+  questions, win if and only if $a\oplus b = x\land y$) on $\lvert\Phi^+\rangle$
+  is the corresponding average Born probability.
+\end{definition}
+
+\begin{definition}[Maximally entangled vector]
+  \label{def:maxEnt}
+  \lean{Leap.maxEnt}
+  For each $d$, $\lvert\Gamma\rangle = \sum_{i=1}^d \lvert i\rangle\otimes\lvert i\rangle$
+  in the tensor product of two $d$-dimensional Euclidean spaces.
+\end{definition}
+
+\begin{definition}[Creation and annihilation on the number basis]
+  \label{def:ccrOps}
+  \lean{Leap.annihilate, Leap.create}
+  On finitely supported number-basis vectors,
+  $a\lvert n\rangle = \sqrt{n}\,\lvert n-1\rangle$ and
+  $a^\dagger\lvert n\rangle = \sqrt{n+1}\,\lvert n+1\rangle$.
+\end{definition}
+
+\chapter{Typicality}
+
+\begin{theorem}[Strong typicality concentrates]
+  \label{thm:strongTypical_prob_tendsto_one}
+  \lean{Leap.strongTypical_prob_tendsto_one}
+  \uses{def:strongTypical}
+  For a distribution $p$ on a finite alphabet and $\delta>0$, the i.i.d.\
+  probability of the strongly $\delta$-typical words of length $k$ tends to~$1$
+  (Wilde Def~15.2.3).
+\end{theorem}
+
+\begin{proof}
+  Weak law of large numbers, applied per letter.
+\end{proof}
+
+This statement is used in the book by Prop~15.2.4--15.2.5, Ex~15.2.2,
+Ex~20.3.3, and the HSW code-pruning chain in Chapter~20.
+
+\begin{theorem}[Uniform conditional typicality]
+  \label{thm:condTypical_prob}
+  \lean{Leap.condTypical_prob}
+  \uses{def:condTypical}
+  For a memoryless channel $W$ and $\delta,\varepsilon>0$ there is $K$ such that
+  for all $k\ge K$ and every input word $x$,
+  $\Pr[Y\in T_\delta(x)\mid x]\ge 1-\varepsilon$
+  (Wilde Def~15.2.4 / Prop~15.2.5).
+\end{theorem}
+
+\begin{proof}
+  Chebyshev's inequality: the variance of $N(a,b)-N(a)W(a,b)$ is at most $k/4$,
+  so the bound is uniform in the input word $x$.
+\end{proof}
+
+This statement is used in the book by Ex~15.2.2, Ex~20.3.3, and the Chapter~20
+max-error code construction.
+
+\begin{theorem}[Size of the conditionally typical set]
+  \label{thm:condTypical_card_le}
+  \lean{Leap.condTypical_card_le}
+  \uses{def:condTypical, def:entropy, def:count}
+  There is a constant $c$ such that
+  $\lvert T_\delta(x)\rvert \le \exp\bigl(k\bigl(H(Y\mid X)_{\mathrm{type}(x)}+c\delta\bigr)\bigr)$
+  for all $k$, $x$ and $\delta>0$ (Wilde Prop~15.2.7).
+\end{theorem}
+
+\begin{proof}
+  Every $y$ in $T$ has probability at least $\exp(-k(H+c\delta))$ with
+  $c=\sum_{W>0}-\log W(a,b)$, and the probabilities sum to at most~$1$.
+\end{proof}
+
+This statement is used in the book by Ex~20.3.3 and the Chapter~20
+code-pruning chain.
+
+\begin{theorem}[Classical Pinsker inequality]
+  \label{thm:pinsker}
+  \lean{Leap.pinsker}
+  In nats, $\bigl(\sum_a \lvert p(a)-q(a)\rvert\bigr)^2/2 \le D(p\Vert q)$
+  (Wilde Thm/Lemma~10.8.1).
+\end{theorem}
+
+\begin{proof}
+  This is the classical Pinsker inequality, stated in nats.
+\end{proof}
+
+The book uses it in Thm~11.9.1, Thm~11.10.4, and the conditional and
+mutual-information Pinsker bounds.
+
+\chapter{Channels and recovery}
+
+\begin{theorem}[Petz recovery, book form for singular $\sigma$]
+  \label{thm:petz_recovers}
+  \lean{Leap.petz_recovers}
+  \uses{def:petz, def:kraus, def:rpowS}
+  For a Kraus channel $N$ and a positive-semidefinite $\sigma$,
+  $R_{\sigma,N}(N(\sigma))=\sigma$ and
+  $\operatorname{Tr} R_{\sigma,N}(X)=\operatorname{Tr}(\Pi_{\operatorname{supp} N(\sigma)} X)$
+  (Wilde Def~12.3.1).
+\end{theorem}
+
+\begin{proof}
+  $N^\dagger(1-\Pi_{N(\sigma)})\ge 0$ has zero trace against $\sigma$, so it
+  kills $\operatorname{supp}\,\sigma$. Hence
+  $\sigma^{1/2} N^\dagger(\Pi)\sigma^{1/2}=\sigma$, and the trace on the support
+  is $\operatorname{Tr}(\Pi X)$.
+\end{proof}
+
+The book uses this in Prop~12.3.1, Cor~12.5.1, Thm~12.1.1, and
+Cor~12.6.1--12.6.5.
+
+\begin{theorem}[Rotated Petz maps]
+  \label{thm:rotatedPetz_props}
+  \lean{Leap.rotatedPetz_props}
+  \uses{def:rotatedPetz, def:petz, def:kraus}
+  For every real $t$, the rotated map $R^t_{\sigma,N}$ recovers $\sigma$, is
+  trace-preserving on the support, and has a Kraus form (Wilde Def~12.3.2).
+\end{theorem}
+
+\begin{proof}
+  \uses{thm:petz_recovers}
+  Start from unrotated recovery. The unitaries commute with their own base
+  state, and the Kraus operators are
+  $L_i = \sigma^{it}\sigma^{1/2} K_i^\dagger N(\sigma)^{-1/2} N(\sigma)^{-it}$.
+\end{proof}
+
+The book uses this in the Chapter~12 recoverability chain and Ex~12.3.1.
+
+\begin{theorem}[Choi's theorem and Kraus form]
+  \label{thm:choi_theorem}
+  \lean{Leap.choi_theorem}
+  \uses{def:choi, def:kraus}
+  A linear map on matrices is completely positive if and only if its Choi
+  matrix is positive-semidefinite if and only if it has a Kraus form with
+  $\lvert m\rvert\cdot\lvert n\rvert$ operators (Wilde Ex~4.4.1 / Thm~4.4.1).
+\end{theorem}
+
+\begin{proof}
+  Choi's theorem, realizing the map with $\lvert m\rvert\cdot\lvert n\rvert$
+  Kraus operators (padding by zero if needed).
+\end{proof}
+
+The book uses this in Ex~13.4.3, Ex~13.5.4, Prop~13.5.1, Thm~13.6.1, and
+Prop~21.6.1--21.6.2.
+
+\begin{theorem}[Kraus form of the erasure channel]
+  \label{thm:erasure_kraus}
+  \lean{Leap.erasure_kraus}
+  \uses{def:erasure, def:kraus}
+  For $0\le\varepsilon\le 1$ there are $\lvert n\rvert+1$ Kraus operators with
+  $\sum_i K_i^\dagger K_i = 1$ realizing $E_\varepsilon$ (Wilde Ex~4.7.9).
+\end{theorem}
+
+\begin{proof}
+  Take $K_{\mathrm{none}}=\sqrt{1-\varepsilon}\cdot\mathrm{embed}$ and
+  $K_a=\sqrt{\varepsilon}\,\lvert e\rangle\langle a\rvert$.
+\end{proof}
+
+The book uses this in Ex~5.2.6, Ex~13.5.2, Ex~13.5.4, and the Chapter~24
+erasure results.
+
+\begin{theorem}[The erasure channel is degradable for $\varepsilon\le 1/2$]
+  \label{thm:erasure_degradable}
+  \lean{Leap.erasure_degradable}
+  \uses{def:erasure}
+  $E_{1-\varepsilon}$ equals re-erasure with
+  $\eta=(1-2\varepsilon)/(1-\varepsilon)$ composed with $E_\varepsilon$, and
+  $\eta\in[0,1]$ (Wilde Ex~13.5.2).
+\end{theorem}
+
+\begin{proof}
+  $\eta=(1-2\varepsilon)/(1-\varepsilon)$ lies in $[0,1]$; the data coefficient
+  is $(1-\eta)(1-\varepsilon)=\varepsilon$, and the flag coefficient is
+  $\eta(1-\varepsilon)+\varepsilon=1-\varepsilon$.
+\end{proof}
+
+The book uses this in Ex~13.5.4 and the erasure (anti)degradability results in
+Chapter~24.
+
+\begin{theorem}[Entanglement fidelity is independent of the purification]
+  \label{thm:entFid_eq}
+  \lean{Leap.entFid_eq}
+  \uses{def:entFid, def:kraus}
+  $F_e(\rho,N)=\sum_i \lvert\operatorname{Tr}(K_i\rho)\rvert^2$ for any
+  purification $\psi$ of $\rho$ (Wilde Def/Thm~9.5.1).
+\end{theorem}
+
+\begin{proof}
+  Trace cyclicity.
+\end{proof}
+
+The book uses this in Ex~9.5.1--9.5.3, Thm~24.3.1, and Ex~24.2.1.
+
+\begin{theorem}[Minimum output entropy is attained on pure inputs]
+  \label{thm:minOutputEntropy_pure}
+  \lean{Leap.minOutputEntropy_pure}
+  \uses{def:traceNorm, def:kraus}
+  For every input state $\rho$ there is a unit vector $v$ with
+  $H(N(\lvert v\rangle\langle v\rvert))\le H(N(\rho))$
+  (Wilde Def~20.4.1 / Ex~20.4.2).
+\end{theorem}
+
+\begin{proof}
+  Spectral decomposition plus concavity of entropy.
+\end{proof}
+
+The book uses this in Thm~20.4.3, Ex~20.4.3--20.4.4, and Ex~20.5.1.
+
+\begin{theorem}[Trace distance ignores an untouched factor]
+  \label{thm:traceNorm_kron_state}
+  \lean{Leap.traceNorm_kron_state}
+  \uses{def:traceNorm}
+  $\lVert A\otimes\omega\rVert_1=\lVert A\rVert_1$ for every density matrix
+  $\omega$ (Wilde Def~9.1.3).
+\end{theorem}
+
+\begin{proof}
+  $\lVert A\otimes\omega\rVert_1=\lVert A\rVert_1\lVert\omega\rVert_1$.
+\end{proof}
+
+The book uses this in Thm~9.1.1, Ex~9.1.12--9.1.13, Ex~24.1.1, and Ex~24.9.1.
+
+\chapter{Interpolation and operator inequalities}
+
+The following three statements form the analytic spine of Wilde Chapter~12:
+Hirschman's two-kernel strip inequality, Schatten H\"older, and the operator
+Stein--Hirschman interpolation that uses both. In the book they feed
+Thm~12.5.1 and Cor~12.5.1, Cor~12.6.1--12.6.5 (those applications use a
+special case; the general theorems stated here are open).
+
+\begin{theorem}[Hirschman's strip inequality, both kernels]
+  \label{thm:hirschman_strip}
+  \lean{Leap.hirschman_strip}
+  \uses{def:hirschmanKernels}
+  For a bounded holomorphic function $f$ on the strip,
+  \[
+    \log\lvert f(\theta)\rvert
+      \le \int \Bigl(
+        \alpha_\theta(t)\log\lvert f(it)\rvert^{1-\theta}
+        + \beta_\theta(t)\log\lvert f(1+it)\rvert^{\theta}
+      \Bigr)\,dt
+  \]
+  (Wilde Thm~12.2.2; Hirschman 1952).
+\end{theorem}
+
+\begin{proof}
+  This is the general two-kernel form of Hirschman's inequality on the strip.
+\end{proof}
+
+\begin{theorem}[Schatten H\"older duality]
+  \label{thm:schatten_holder}
+  \lean{Leap.schatten_holder}
+  \uses{def:schattenNorm}
+  $\lvert\operatorname{tr}(TX)\rvert \le \lVert T\rVert_p\lVert X\rVert_q$ for
+  conjugate exponents $p,q$.
+\end{theorem}
+
+\begin{proof}
+  Singular-value / polar decomposition together with the von Neumann trace
+  inequality.
+\end{proof}
+
+\begin{theorem}[Operator Stein--Hirschman, general exponents]
+  \label{thm:stein_hirschman}
+  \lean{Leap.stein_hirschman}
+  \uses{def:schattenNorm, def:hirschmanKernels}
+  The Stein--Hirschman interpolation inequality for a holomorphic family of
+  operators, in general Schatten exponents $p_0,p_1$ (Wilde Thm~12.2.3).
+\end{theorem}
+
+\begin{proof}
+  \uses{thm:hirschman_strip, thm:schatten_holder}
+  Apply Hirschman's strip inequality to a suitable scalar function of the
+  Schatten norms, using Schatten H\"older to control the operator family.
+\end{proof}
+
+\begin{theorem}[Golden--Thompson inequality]
+  \label{thm:golden_thompson}
+  \lean{Leap.golden_thompson}
+  $\operatorname{Tr} e^{A+B} \le \operatorname{Tr} e^A e^B$ for Hermitian
+  $A,B$ (premise of Wilde Lemma~17.3.3).
+\end{theorem}
+
+\begin{proof}
+  This is the Golden--Thompson inequality.
+\end{proof}
+
+The book uses it for the operator Chernoff bound and the covering lemma in
+Chapter~17.
+
+\begin{theorem}[Monotonicity of quantum relative entropy under partial trace]
+  \label{thm:relEnt_ptrace_le}
+  \lean{Leap.relEnt_ptrace_le}
+  \uses{def:traceNorm}
+  $D(\operatorname{Tr}_B\rho\Vert\operatorname{Tr}_B\sigma)\le D(\rho\Vert\sigma)$
+  for positive-definite $\rho,\sigma$ (Wilde Thm~11.9.2).
+\end{theorem}
+
+\begin{proof}
+  This is the Lindblad--Uhlmann theorem. It holds for positive-definite inputs
+  without normalization, and needs Lieb concavity.
+\end{proof}
+
+The book uses this in Thm~11.9.1, Ex~11.9.1, and Thm~11.10.4. It is also the
+input to the Holevo bound below.
+
+\begin{theorem}[Holevo bound for a finite-outcome measurement]
+  \label{thm:holevo_bound}
+  \lean{Leap.holevo_bound}
+  \uses{def:traceNorm}
+  $I(X;Y)\le H\bigl(\sum_x p_x\rho_x\bigr)-\sum_x p_x H(\rho_x)$
+  (Wilde Ex~11.9.2 / Thm~11.6.1).
+\end{theorem}
+
+\begin{proof}
+  \uses{thm:relEnt_ptrace_le}
+  The bound follows from monotonicity of relative entropy under partial trace.
+\end{proof}
+
+The book uses this in Ex~11.9.2 (accessible information).
+
+\chapter{Finite-dimensional identities}
+
+\begin{theorem}[Transpose trick]
+  \label{thm:transpose_trick}
+  \lean{Leap.transpose_trick}
+  \uses{def:maxEnt}
+  $(A\otimes I)\lvert\Gamma\rangle = (I\otimes A^T)\lvert\Gamma\rangle$
+  (Wilde Ex~3.7.12 / 3.7.11).
+\end{theorem}
+
+\begin{proof}
+  This is a short identity on the maximally entangled vector. A follow-on in
+  the same exercise family (not stated as a separate compiled obligation here)
+  is to prove that the $d^2$ Heisenberg--Weyl Bell vectors
+  $(X^x Z^z \otimes 1)\lvert\Phi\rangle/\sqrt{d}$ form an orthonormal basis
+  (Ex~3.7.11).
+\end{proof}
+
+\begin{theorem}[CHSH achievability]
+  \label{thm:chsh_achieves}
+  \lean{Leap.chsh_achieves}
+  \uses{def:chsh}
+  Some projective strategy on $\lvert\Phi^+\rangle$ wins with probability
+  $\cos^2(\pi/8)$ (Wilde Ex~3.6.4).
+\end{theorem}
+
+\begin{proof}
+  Exhibit an explicit qubit strategy.
+\end{proof}
+
+\begin{theorem}[Qubit Tsirelson bound for CHSH]
+  \label{thm:chsh_tsirelson}
+  \lean{Leap.chsh_tsirelson}
+  \uses{def:chsh}
+  No projective strategy on $\lvert\Phi^+\rangle$ does better than
+  $\cos^2(\pi/8)$ (Wilde Ex~3.6.4).
+\end{theorem}
+
+\begin{proof}
+  This is the qubit Tsirelson bound in this form. An extension (not stated
+  here) would allow arbitrary dimension and an arbitrary shared state.
+\end{proof}
+
+\chapter{Canonical commutation relations}
+
+\begin{theorem}[Wielandt--Wintner]
+  \label{thm:wielandt}
+  \lean{Leap.wielandt}
+  No two elements of a nontrivial normed $\mathbb{C}$-algebra satisfy
+  $[a,b]=1$. In particular, $[Q,P]=i\hbar$ has no bounded representation.
+\end{theorem}
+
+\begin{proof}
+  This is the standard boundedness obstruction for the canonical commutation
+  relation.
+\end{proof}
+
+\begin{theorem}[CCR on the finite-span number basis]
+  \label{thm:ccr_on_finite_span}
+  \lean{Leap.ccr_on_finite_span}
+  \uses{def:ccrOps}
+  $a\circ a^\dagger - a^\dagger\circ a = \mathrm{id}$ on finitely supported
+  number-basis vectors.
+\end{theorem}
+
+\begin{proof}
+  Direct computation on basis vectors.
+\end{proof}
+
+A larger follow-on (not compiled in this repository) is to realize $a$ and
+$a^\dagger$ as densely defined operators on $\ell^2(\mathbb{N})$, prove
+$a^\dagger\subseteq a^\ast$, closability, that $N=a^\dagger a$ is essentially
+self-adjoint with spectrum $\mathbb{N}$, and the coherent-state and
+displacement identities.
+
+\chapter{L\"owner order and effects}
+
+The three statements in this chapter are elementary facts used in
+\href{https://arxiv.org/abs/2611.09822}{arXiv:2611.09822}, Appendix~A.
+
+\begin{theorem}[Hermitian $2\times 2$ matrices are not a L\"owner lattice]
+  \label{thm:loewner_not_lattice}
+  \lean{Leap.loewner_not_lattice}
+  There exist Hermitian $2\times 2$ matrices with no Hermitian least upper bound
+  in the L\"owner order.
+\end{theorem}
+
+\begin{proof}
+  A standard counter-example in $2\times 2$ Hermitian matrices.
+\end{proof}
+
+\begin{theorem}[Increasing chains of effects have a L\"owner supremum]
+  \label{thm:loewner_chain_sup}
+  \lean{Leap.loewner_chain_sup}
+  An increasing chain of effects $0\le f_k\le 1$ has a L\"owner supremum, which
+  is again an effect.
+\end{theorem}
+
+\begin{proof}
+  Monotone bounded convergence of Hermitian matrices.
+\end{proof}
+
+A follow-on (not stated here) is an $\omega$-complete partial-order instance on
+the set of effects, which would be an input to a denotational semantics for
+loops in a small quantum while-language.
+
+\begin{theorem}[Countability of a finite-variable integer store]
+  \label{thm:store_countable}
+  \lean{Leap.store_countable}
+  If $\mathrm{Var}$ is finite, then the set of maps $\mathrm{Var}\to\mathbb{Z}$
+  is countable.
+\end{theorem}
+
+\begin{proof}
+  A finite product of countable sets is countable.
+\end{proof}
+
+\chapter{Further tasks}
+
+The following tasks are in scope but do not yet have a compiled
+\texttt{sorry} theorem in this repository, so they do not appear as nodes in
+the dependency graph.
+
+\begin{itemize}
+  \item A strip-interpolation analysis layer for Mathlib, as infrastructure
+    behind Theorems~\ref{thm:hirschman_strip}--\ref{thm:stein_hirschman}:
+    strip harmonic measure and the Poisson kernel, the strip--disc conformal
+    map, a log-subharmonic majorant, and boundary log-integrability.
+  \item Expectation / weakest-precondition duality for a small quantum while
+    language (claims in \href{https://arxiv.org/abs/2611.09822}{arXiv:2611.09822}),
+    using Theorem~\ref{thm:loewner_chain_sup} for loop denotations.
+  \item End-to-end formalization of a published quantum-networking paper:
+    every displayed rate and fidelity formula as a theorem, with a ledger of
+    proved and not-formalizable rows.
+\end{itemize}
