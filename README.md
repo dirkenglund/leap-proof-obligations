@@ -369,15 +369,6 @@ one, a proof idea or a book result that depends on the claim.
   follow-on (not stated here) is an `OmegaCompletePartialOrder` instance on
   the set of effects. Difficulty: medium.
 
-#### 26. Countability of a finite-variable integer store
-
-- **Lean name:** `Leap.store_countable`
-- **File:** [`LeapProofObligations/StoreCountable.lean`](LeapProofObligations/StoreCountable.lean)
-- **Reference:** [arXiv:2611.09822](https://arxiv.org/abs/2611.09822), App. A
-- **Goal:** If `Var` is finite, then `Var → ℤ` is countable.
-- **Status:** Open (`sorry`).
-- **Gap / sketch:** Finite product of countable sets. Difficulty: trivial.
-
 ### Broader public-ready tasks (no compiled statement in this repository yet)
 
 These are in-scope formalization tasks that do not yet have a single compiled

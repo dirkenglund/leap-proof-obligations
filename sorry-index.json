@@ -500,26 +500,6 @@
         "goal": null,
         "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/LoewnerChainSup.lean#L11"
       }
-    },
-    {
-      "theorem": "Leap.store_countable",
-      "repo": {
-        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
-        "branch": "main",
-        "commit": "main",
-        "lean_version": "v4.35.0"
-      },
-      "location": {
-        "path": "LeapProofObligations/StoreCountable.lean",
-        "start_line": 7,
-        "start_column": 3,
-        "end_line": 7,
-        "end_column": 8
-      },
-      "debug_info": {
-        "goal": null,
-        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/StoreCountable.lean#L7"
-      }
     }
   ]
 }
