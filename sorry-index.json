@@ -1,0 +1,525 @@
+{
+  "comment": "Local index of Prop-valued obligations, using SorryDB field names (repo, location, debug_info). Official SorryDB records are produced by the SorryDB crawler once this package is listed on Reservoir. debug_info.goal is left null until extracted with the Lean REPL after a successful lake build.",
+  "sorries": [
+    {
+      "theorem": "Leap.strongTypical_prob_tendsto_one",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/StrongTypicalProbTendstoOne.lean",
+        "start_line": 14,
+        "start_column": 3,
+        "end_line": 14,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/StrongTypicalProbTendstoOne.lean#L14"
+      }
+    },
+    {
+      "theorem": "Leap.petz_recovers",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/PetzRecovers.lean",
+        "start_line": 15,
+        "start_column": 3,
+        "end_line": 15,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/PetzRecovers.lean#L15"
+      }
+    },
+    {
+      "theorem": "Leap.rotatedPetz_props",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/RotatedPetzProps.lean",
+        "start_line": 16,
+        "start_column": 3,
+        "end_line": 16,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/RotatedPetzProps.lean#L16"
+      }
+    },
+    {
+      "theorem": "Leap.choi_theorem",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/ChoiTheorem.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/ChoiTheorem.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.condTypical_prob",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/CondTypicalProb.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/CondTypicalProb.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.erasure_degradable",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/ErasureDegradable.lean",
+        "start_line": 14,
+        "start_column": 3,
+        "end_line": 14,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/ErasureDegradable.lean#L14"
+      }
+    },
+    {
+      "theorem": "Leap.entFid_eq",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/EntFidEq.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/EntFidEq.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.minOutputEntropy_pure",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/MinOutputEntropyPure.lean",
+        "start_line": 14,
+        "start_column": 3,
+        "end_line": 14,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/MinOutputEntropyPure.lean#L14"
+      }
+    },
+    {
+      "theorem": "Leap.erasure_kraus",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/ErasureKraus.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/ErasureKraus.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.hirschman_strip",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/HirschmanStrip.lean",
+        "start_line": 16,
+        "start_column": 3,
+        "end_line": 16,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/HirschmanStrip.lean#L16"
+      }
+    },
+    {
+      "theorem": "Leap.stein_hirschman",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/SteinHirschman.lean",
+        "start_line": 24,
+        "start_column": 3,
+        "end_line": 24,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/SteinHirschman.lean#L24"
+      }
+    },
+    {
+      "theorem": "Leap.schatten_holder",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/SchattenHolder.lean",
+        "start_line": 14,
+        "start_column": 3,
+        "end_line": 14,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/SchattenHolder.lean#L14"
+      }
+    },
+    {
+      "theorem": "Leap.traceNorm_kron_state",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/TraceNormKronState.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/TraceNormKronState.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.condTypical_card_le",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/CondTypicalCardLe.lean",
+        "start_line": 14,
+        "start_column": 3,
+        "end_line": 14,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/CondTypicalCardLe.lean#L14"
+      }
+    },
+    {
+      "theorem": "Leap.relEnt_ptrace_le",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/RelEntPtraceLe.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/RelEntPtraceLe.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.pinsker",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/Pinsker.lean",
+        "start_line": 13,
+        "start_column": 3,
+        "end_line": 13,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/Pinsker.lean#L13"
+      }
+    },
+    {
+      "theorem": "Leap.golden_thompson",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/GoldenThompson.lean",
+        "start_line": 12,
+        "start_column": 3,
+        "end_line": 12,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/GoldenThompson.lean#L12"
+      }
+    },
+    {
+      "theorem": "Leap.holevo_bound",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/HolevoBound.lean",
+        "start_line": 18,
+        "start_column": 3,
+        "end_line": 18,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/HolevoBound.lean#L18"
+      }
+    },
+    {
+      "theorem": "Leap.transpose_trick",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/TransposeTrick.lean",
+        "start_line": 11,
+        "start_column": 3,
+        "end_line": 11,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/TransposeTrick.lean#L11"
+      }
+    },
+    {
+      "theorem": "Leap.chsh_achieves",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/ChshAchieves.lean",
+        "start_line": 9,
+        "start_column": 3,
+        "end_line": 9,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/ChshAchieves.lean#L9"
+      }
+    },
+    {
+      "theorem": "Leap.chsh_tsirelson",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/ChshTsirelson.lean",
+        "start_line": 9,
+        "start_column": 3,
+        "end_line": 9,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/ChshTsirelson.lean#L9"
+      }
+    },
+    {
+      "theorem": "Leap.wielandt",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/Wielandt.lean",
+        "start_line": 9,
+        "start_column": 3,
+        "end_line": 9,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/Wielandt.lean#L9"
+      }
+    },
+    {
+      "theorem": "Leap.ccr_on_finite_span",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/CcrOnFiniteSpan.lean",
+        "start_line": 7,
+        "start_column": 3,
+        "end_line": 7,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/CcrOnFiniteSpan.lean#L7"
+      }
+    },
+    {
+      "theorem": "Leap.loewner_not_lattice",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/LoewnerNotLattice.lean",
+        "start_line": 12,
+        "start_column": 3,
+        "end_line": 12,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/LoewnerNotLattice.lean#L12"
+      }
+    },
+    {
+      "theorem": "Leap.loewner_chain_sup",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/LoewnerChainSup.lean",
+        "start_line": 11,
+        "start_column": 3,
+        "end_line": 11,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/LoewnerChainSup.lean#L11"
+      }
+    },
+    {
+      "theorem": "Leap.store_countable",
+      "repo": {
+        "remote": "https://github.com/dirkenglund/leap-proof-obligations",
+        "branch": "main",
+        "commit": "main",
+        "lean_version": "v4.35.0"
+      },
+      "location": {
+        "path": "LeapProofObligations/StoreCountable.lean",
+        "start_line": 7,
+        "start_column": 3,
+        "end_line": 7,
+        "end_column": 8
+      },
+      "debug_info": {
+        "goal": null,
+        "url": "https://github.com/dirkenglund/leap-proof-obligations/blob/main/LeapProofObligations/StoreCountable.lean#L7"
+      }
+    }
+  ]
+}
