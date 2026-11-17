@@ -53,12 +53,12 @@ noncomputable def entropy {β : Type*} [Fintype β] (q : β → ℝ) : ℝ :=
 /-! ## Channels and recovery maps (Wilde §§4, 9, 11, 12, 13, 20) -/
 
 /-- Kraus-form map `X ↦ ∑ Kᵢ X Kᵢ†`. -/
-def kraus {m n ι : Type*} [Fintype ι] (K : ι → Matrix n m ℂ) (X : Matrix m m ℂ) :
+def kraus {m n ι : Type*} [Fintype m] [Fintype ι] (K : ι → Matrix n m ℂ) (X : Matrix m m ℂ) :
     Matrix n n ℂ :=
   ∑ i, K i * X * (K i)ᴴ
 
 /-- Heisenberg-picture adjoint `Y ↦ ∑ Kᵢ† Y Kᵢ`. -/
-def krausAdj {m n ι : Type*} [Fintype ι] (K : ι → Matrix n m ℂ) (Y : Matrix n n ℂ) :
+def krausAdj {m n ι : Type*} [Fintype n] [Fintype ι] (K : ι → Matrix n m ℂ) (Y : Matrix n n ℂ) :
     Matrix m m ℂ :=
   ∑ i, (K i)ᴴ * Y * K i
 
