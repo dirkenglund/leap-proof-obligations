@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Check sorry-index.json
+        run: python3 scripts/sorry_index.py check
 
       - name: Build project
         uses: leanprover/lean-action@434f25c2f80ded67bba02502ad3a86f25db50709 # 2025-07-02

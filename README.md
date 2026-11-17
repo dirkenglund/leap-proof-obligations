@@ -68,6 +68,25 @@ indexed by SorryDB:
 Until that crawl happens, agents can already use `sorry-index.json` and the
 per-theorem files directly.
 
+### Keeping `sorry-index.json` current
+
+`repo.commit` in `sorry-index.json` is the full SHA of the most recent commit
+that changed the Lean sources (`LeapProofObligations/` or
+`LeapProofObligations.lean`), and each `debug_info.url` is a permalink at that
+commit. Every recorded location is valid at that commit and at any later
+commit with the same Lean sources. After changing an obligation:
+
+1. Commit the Lean change.
+2. Run `python3 scripts/sorry_index.py write`. This regenerates the index from
+   the files and records the SHA of that commit.
+3. Commit `sorry-index.json`.
+
+CI runs `python3 scripts/sorry_index.py check` on every pull request. The check
+fails if the index does not match the files, if `repo.commit` is not a full SHA
+reachable from `HEAD`, or if the Lean sources have changed since that commit.
+Squash or rebase merges rewrite SHAs. After one, run `write` again on `main`
+and commit the result (or merge pull requests with a merge commit).
+
 ## Proof obligations
 
 Every item below is **open**: stated with `sorry`, not proved. The Lean name is
