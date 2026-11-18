@@ -111,6 +111,6 @@
       "configFile": "lakefile.toml"
     }
   ],
-  "name": "leap-proof-obligations",
+  "name": "«leap-proof-obligations»",
   "lakeDir": ".lake"
 }
