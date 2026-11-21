@@ -388,6 +388,12 @@ one, a proof idea or a book result that depends on the claim.
   follow-on (not stated here) is an `OmegaCompletePartialOrder` instance on
   the set of effects. Difficulty: medium.
 
+### Full transceiver gain and bandwidth across corners
+
+For a matched coherent lane, compose the power responses of the driver and modulator, the optical path including coherent mixing, and the detector and readout. From stage gain limits and relative passband and stopband budgets at the same joint corner, prove an end-to-end DC squared-gain interval and a bracket for the first half-power frequency. A corner indexes all shared electrical and optical conditions.
+
+Open theorem [`Leap.gf_transceiver_corner_gain_bandwidth`](LeapProofObligations/GfTransceiverCorners.lean).
+
 ### Broader public-ready tasks (no compiled statement in this repository yet)
 
 These are in-scope formalization tasks that do not yet have a single compiled
