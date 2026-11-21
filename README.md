@@ -388,6 +388,12 @@ one, a proof idea or a book result that depends on the claim.
   follow-on (not stated here) is an `OmegaCompletePartialOrder` instance on
   the set of effects. Difficulty: medium.
 
+### 65 nm TIA gain and bandwidth over transistor corners
+
+For each joint process corner at its admitted DC bias, let the squared magnitude of the extracted transimpedance be N/D. Given a positive denominator, a DC gain interval, and a positive polynomial certificate through the passband, prove gain limits and a bracket for the first half-power frequency for every admitted corner. The stop check is at the high endpoint. The statement permits peaking and uses each corner’s own DC gain.
+
+Open theorem [`Leap.tia_transistor_corner_gain_bandwidth`](LeapProofObligations/TiaTransistorCorner.lean).
+
 ### Broader public-ready tasks (no compiled statement in this repository yet)
 
 These are in-scope formalization tasks that do not yet have a single compiled
