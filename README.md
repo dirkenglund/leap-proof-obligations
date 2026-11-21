@@ -388,6 +388,12 @@ one, a proof idea or a book result that depends on the claim.
   follow-on (not stated here) is an `OmegaCompletePartialOrder` instance on
   the set of effects. Difficulty: medium.
 
+### Correlated fabrication errors in a programmable photonic circuit
+
+Model the two splitter-angle errors in each cell of a programmable N-mode triangular Reck mesh using the same fabrication realization. An input waveguide crossing exchanges the two ports. Bound the dark-port power in its cross state using the difference of signed splitter sensitivities. At general phase settings both their sum and difference enter. Multiply the embedded two-mode transfers in the triangular wiring. Bound every matrix entry and the squared Frobenius matrix error divided by the mode count.
+
+Open theorem [`Leap.sandia_correlated_mzi_mesh`](LeapProofObligations/SandiaCorrelatedMzi.lean). [Optical cell and phase convention](https://doi.org/10.1038/s41467-022-34308-3).
+
 ### Broader public-ready tasks (no compiled statement in this repository yet)
 
 These are in-scope formalization tasks that do not yet have a single compiled
