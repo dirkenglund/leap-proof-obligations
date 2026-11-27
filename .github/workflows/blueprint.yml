@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   build_project:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, fleet-linux]  # was ubuntu-latest (GitHub-hosted); GB-34 fleet-only CI
     name: Build project
     steps:
       - name: Cleanup to free disk space
